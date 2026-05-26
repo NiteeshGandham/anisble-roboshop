@@ -29,7 +29,6 @@
   - name: Print the output format
     ansible.builtin.debug:
       msg: "{{ ec2_output }}"
-    action: create
     when: action == "create" 
 
 
