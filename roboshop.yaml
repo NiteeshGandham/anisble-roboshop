@@ -2,6 +2,7 @@
   hosts: all
   connection: local
   vars:
+    domain_name: ngandham.online
     sg_id: sg-0796c7394eedaf2b5
     ami_id: ami-0220d79f3f480ecf5
     instances:
@@ -27,3 +28,15 @@
   - name: Print the output format
     ansible.builtin.debug:
       msg: "{{ ec2_output }}"
+
+
+  - name: create route53 records
+    amazon.aws.route53:
+      state: present
+      zone: "{{ domain_name }}"
+      record: "{{ item.item }}-{{ dev }}.{{ domain_name }}" #cataloge-dev.ngandham.online
+      type: A
+      ttl: 7200
+      value: 1.1.1.1,2.2.2.2,3.3.3.3
+      wait: true
+    loop: "{{ ec2_output.results }}"
