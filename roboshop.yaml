@@ -1,5 +1,5 @@
 - name: create EC2 instances and r53 record
-  hosts: local
+  hosts: localhost
   connection: local
   vars:
     domain_name: ngandham.online
