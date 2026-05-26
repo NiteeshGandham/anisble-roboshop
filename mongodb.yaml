@@ -7,10 +7,15 @@
       src: mongo.repo
       dest: /etc/yum.repos.d/mongo.repo
 
-  - name: install the MongoDB
-    ansible.builtin.dnf:
+  #- name: install the MongoDB
+  #  ansible.builtin.package:
+  #    name: mongodb-org
+  #   state: present
+  - name: Install mongodb
+    ansible.builtin.package:
       name: mongodb-org
       state: present
+
 
   - name: allow remote connections
     ansible.builtin.file:
