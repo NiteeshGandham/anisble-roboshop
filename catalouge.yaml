@@ -39,8 +39,8 @@
       remote_src: yes
 
   - name: install dependencies 
-    acommunity.general.npm:
-    path: /app
+    community.general.npm:
+      path: /app
 
   - name: copy a service file
     ansible.builtin.copy:
