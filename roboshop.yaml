@@ -63,7 +63,7 @@
   - name: ec2 instance delete
     amazon.aws.ec2_instance:
       name: "{{ item }}-{{ env }}"
-      loop: "{{ instances }}"
+    loop: "{{ instances }}"
     when: action == "destroy"    
 
 
@@ -74,7 +74,7 @@
       record: "{{ item }}-{{ env }}.{{ domain_name }}"
       type: A
       ttl: 1
-      loop: "{{ instances }}"
+    loop: "{{ instances }}"
     when: action == "destroy"
 
 
