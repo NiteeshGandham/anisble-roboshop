@@ -9,6 +9,7 @@
     - catalouge
     - mongodb
     env: Dev
+    action: create
   tasks:
   - name: create a ec2 instance
     amazon.aws.ec2_instance:
@@ -21,14 +22,15 @@
         Component: "{{ item }}"
         Env: "{{ env }}"
         Project: Roboshop
-
     loop: "{{ instances }}"
     register: ec2_output
+    when: action == "create"
 
   - name: Print the output format
     ansible.builtin.debug:
       msg: "{{ ec2_output }}"
     action: create
+    when: action == "create" 
 
 
   - name: create route53 records
@@ -41,8 +43,9 @@
       value: "{{ item.instances[0].private_ip_address }}"
       wait: true
     loop: "{{ ec2_output.results }}"
+    when: action == "create" 
 
-  - name: create route53 records
+  - name: create route53 records for roboshop
     amazon.aws.route53:
       state: present
       zone: "{{ domain_name }}"
@@ -52,4 +55,27 @@
       value: "{{ item.instances[0].public_ip_address }}"
       wait: true
     loop: "{{ ec2_output.results }}"
-    when: item.item == "frontend"
+    when: 
+    - item.item == "frontend"
+    - action == "create" 
+
+
+
+  - name: ec2 instance delete
+    amazon.aws.ec2_instance:
+      name: "{{ item }}-{{ env }}"
+    loop: "{{ instances }}"
+    when: action == "destroy"    
+
+
+  - name: delete route53 records for roboshop
+    amazon.aws.route53:
+      state: absent
+      zone: "{{ domain_name }}"
+      record: "{{ item }}-{{ env }}.{{ domain_name }}"
+      type: A
+      ttl: 1
+    loop: "{{ instances }}"
+    when: action == "destroy"
+
+
