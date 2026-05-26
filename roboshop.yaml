@@ -1,12 +1,13 @@
 - name: create EC2 instances and r53 record
   hosts: all
   connection: local
-  sg_id: sg-0796c7394eedaf2b5
-  ami_id: ami-0220d79f3f480ecf5
-  instances:
-  - catalouge
-  - mongodb
-  env: Dev
+  vars:
+    sg_id: sg-0796c7394eedaf2b5
+    ami_id: ami-0220d79f3f480ecf5
+    instances:
+    - catalouge
+    - mongodb
+    env: Dev
   tasks:
   - name: create a ec2 instance
     amazon.aws.ec2_instance:
