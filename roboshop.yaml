@@ -1,5 +1,5 @@
 - name: create EC2 instances and r53 record
-  hosts: all
+  hosts: local
   connection: local
   vars:
     domain_name: ngandham.online
@@ -50,7 +50,7 @@
       ttl: 1
       value: "{{ item.instances[0].private_ip_address }}"
       wait: false
-      overwright: true
+      overwrite: true
     loop: "{{ ec2_output.results }}"
     when: action == "create" 
 
@@ -61,7 +61,7 @@
       record: "roboshop-{{ env }}.{{ domain_name }}" #cataloge-dev.ngandham.online
       type: A
       ttl: 1
-      overwright: true
+      overwrite: true
       value: "{{ item.instances[0].public_ip_address }}"
       wait: false
     loop: "{{ ec2_output.results }}"
