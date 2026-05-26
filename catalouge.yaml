@@ -38,4 +38,33 @@
       dest: /app
       remote_src: yes
 
+  - name: install dependencies 
+    acommunity.general.npm:
+    path: /app
+
+  - name: copy a service file
+    ansible.builtin.copy:
+      source: catalouge.service
+      dest:  /etc/systemd/system/catalogue.service
+  
+  - name: Setup(copying) the MongoDB repo file
+    ansible.builtin.copy:
+      src: mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo
+
+  - name: install mongodb client
+    ansible.builtin.dnf:
+      name: mongodb-mongosh
+      state: present
+
+  - name: check products loades or not
+    ansible.builtin.command: mongosh --host "{{MONGODB_HOST}}" --quiet  --eval 'db.getMongo().getDBNames().indexOf("catalogue")
+    register: catalouge_output
+
+  - name: print the catalouge output
+    ansible.builtin.debug:
+      msg: "{{ catalouge_output }}"
+  
+
+
     
