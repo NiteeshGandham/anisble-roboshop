@@ -1,0 +1,40 @@
+- name: Configuring catalouge
+  hosts: catalouge
+  become: yes
+  tasks:
+  - name: Disable the existing node js
+    ansible.builtin.command: dnf module enable nodejs:20 -y
+      
+  - name: install the nodejs:20
+    ansible.builtin.dnf:
+      name: nodejs
+      state: present
+
+  - name: Ensure a system user for the web service exists
+    ansible.builtin.user:
+      name: roboshop
+      comment: "roboshop system user"
+      system: yes
+      shell: /sbin/nologin
+      state: present
+      home: /app
+
+
+  - name: Create a /app directory if it does not exist
+    ansible.builtin.file:
+      path: /app
+      state: directory
+      
+
+  - name: Download application binary
+    ansible.builtin.get_url:
+      url: https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip
+      dest: /tmp/catalogue.zip
+      
+
+  - name: unzip the /tmp/catalogue.zip file
+    ansible.builtin.unarchive:
+      src: /tmp/catalogue.zip
+      dest: /app
+
+    
