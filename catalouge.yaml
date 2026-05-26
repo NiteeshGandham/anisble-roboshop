@@ -1,5 +1,5 @@
-- name: Configuring catalouge
-  hosts: catalouge
+- name: Configuring catlouge
+  hosts: catlouge
   become: yes
   tasks:
   - name: Disable the existing node js
