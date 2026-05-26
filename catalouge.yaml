@@ -82,7 +82,7 @@
 
   - name: start and eneble the catalouge
     ansible.builtin.service:
-      name: cataloge
+      name: catalogue
       enabled: yes
       state: restarted
 
