@@ -1,5 +1,5 @@
 - name: create EC2 instances and r53 record
-  hosts: localhost
+  hosts: all
   connection: local
   vars:
     domain_name: ngandham.online
@@ -9,7 +9,7 @@
     - catalouge
     - mongodb
     env: Dev
-    #action: create
+    action: create
   tasks:
   - name: create a ec2 instance
     amazon.aws.ec2_instance:
@@ -63,6 +63,7 @@
   - name: ec2 instance delete
     amazon.aws.ec2_instance:
       name: "{{ item }}-{{ env }}"
+      state: absent
     loop: "{{ instances }}"
     when: action == "destroy"    
 
