@@ -44,7 +44,7 @@
 
   - name: copy a service file
     ansible.builtin.copy:
-      source: catalouge.service
+      src : catalouge.service
       dest: /etc/systemd/system/catalogue.service
   
   - name: Setup(copying) the MongoDB repo file
