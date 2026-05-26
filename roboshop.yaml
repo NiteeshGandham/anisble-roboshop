@@ -1,5 +1,5 @@
 - name: create EC2 instances and r53 record
-  hosts: all
+  hosts: localhost
   connection: local
   vars:
     domain_name: ngandham.online
@@ -9,7 +9,7 @@
     - catalouge
     - mongodb
     env: Dev
-    action: create
+    #action: create
   tasks:
   - name: create a ec2 instance
     amazon.aws.ec2_instance:
