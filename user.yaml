@@ -1,6 +1,5 @@
 - name: Configuring user service
   hosts: user
-  connection: local
   become: yes
   tasks:
   - name: enable the nodejs:20
