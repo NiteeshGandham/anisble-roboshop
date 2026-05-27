@@ -45,7 +45,7 @@
 
   
   - name: copy the cart.service file to /etc/systemd/system/cart.service
-    ansible.builtin.copy:
+    ansible.builtin.template:
       src: cart.service
       dest: /etc/systemd/system/cart.service
 

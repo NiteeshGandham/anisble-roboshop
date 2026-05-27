@@ -40,7 +40,7 @@
       path: /app
 
   - name: copy a user service file
-    ansible.builtin.copy:
+    ansible.builtin.template:
       src : user.service
       dest: /etc/systemd/system/user.service
 
