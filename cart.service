@@ -2,11 +2,9 @@
 Description = Cart Service
 [Service]
 User=roboshop
-// highlight-start
-Environment=REDIS_HOST= "{{ REDIS_HOST }}"
-Environment=CATALOGUE_HOST= "{{ CATALOUGE_HOST }}"
+Environment=REDIS_HOST=redis-dev.ngandham.online
+Environment=CATALOGUE_HOST=catalouge-dev.ngandham.online
 Environment=CATALOGUE_PORT=8080
-// highlight-end
 ExecStart=/bin/node /app/server.js
 SyslogIdentifier=cart
 
