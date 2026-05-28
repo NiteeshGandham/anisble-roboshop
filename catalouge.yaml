@@ -56,13 +56,13 @@
     ansible.builtin.template:
       src : catalogue.service
       dest: /etc/systemd/system/catalogue.service
-      remote_src: yes
+      
   
   - name: Setup(copying) the MongoDB repo file
     ansible.builtin.template:
       src: mongo.repo
       dest: /etc/yum.repos.d/mongo.repo
-      remote_src: yes
+      
 
   - name: install mongodb client
     ansible.builtin.dnf:
