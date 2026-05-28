@@ -10,11 +10,11 @@
       name: nginx
       state: present
 
-  - name: start and enable the nginx
-    ansible.builtin.service:
-      name: nginx
-      state: restarted
-      enabled: yes
+   #- name: start and enable the nginx
+   # ansible.builtin.service:
+   #   name: nginx
+   #   state: restarted
+   #   enabled: yes
 
   - name: delete the directory
     ansible.builtin.file:
