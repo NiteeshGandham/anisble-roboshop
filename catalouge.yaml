@@ -54,7 +54,7 @@
 
   - name: copy a service file
     ansible.builtin.template:
-      src : catalogure.service
+      src : catalogue.service
       dest: /etc/systemd/system/catalogue.service
       remote_src: yes
   
